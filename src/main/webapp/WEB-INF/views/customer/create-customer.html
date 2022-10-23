@@ -1,0 +1,52 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Travel agency</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+</head>
+<body>
+<div class="container py-5">
+    <div th:replace="header"></div>
+    <div class="col-md-offset-2">
+        <h2>Create new customer</h2>
+    </div>
+    <form th:action="@{/customers/create}" th:object="${customer}" method="post">
+        <div class="mb-3">
+            <label for="firstName" class="form-label">First name</label>
+            <input th:field="*{firstName}" type="text" class="form-control" id="firstName" aria-describedby="emailHelp">
+            <div th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}" id="emailHelp" class="form-text">We'll never
+                share your email with anyone else.
+            </div>
+        </div>
+        <div class="mb-3">
+            <label for="lastName" class="form-label">Last name</label>
+            <input th:field="*{lastName}" type="text" class="form-control" id="lastName">
+            <div class="invalid-feedback">Please choose a username.</div>
+        </div>
+        <div class="mb-3">
+            <label for="email" class="form-label">Email</label>
+            <input th:field="*{email}" type="email" class="form-control" id="email">
+            <div class="invalid-feedback">Please choose a username.</div>
+        </div>
+        <div class="mb-3">
+            <label for="password" class="form-label">Password</label>
+            <input th:field="*{password}" type="password" class="form-control" id="password">
+            <div class="invalid-feedback">Please choose a username.</div>
+        </div>
+        <div class="mb-3">
+            <label for="hotelCountry" class="form-label">Country</label>
+            <select th:field="*{role}" name="hotelCountry" id="hotelCountry" class="form-select" aria-label="Default select example">
+                <option th:each="role : ${T(org.example.travelagency.model.enums.Role).values()}"
+                        th:value="${role}"
+                        th:text="${role.displayValue}">
+                </option>
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>
+</body>
+</html>

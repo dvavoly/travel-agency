@@ -1,0 +1,33 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Travel agency</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+</head>
+<body>
+<div class="container py-5">
+    <div th:replace="header"></div>
+    <a th:href="@{/hotels/create}" class="btn btn-outline-success me-2" role="button">Add hotel</a>
+    <table class="table">
+        <tr>
+            <th scope="col">No.</th>
+            <th scope="col">Hotel Name</th>
+            <th scope="col">Address</th>
+            <th scope="col">Country</th>
+            <th colspan="2">Operations</th>
+        </tr>
+        <tr th:each="hotel, iStat: ${hotels}">
+            <th scope="row" th:text="${iStat.index + 1}"/>
+            <td><a th:href="@{|/hotels/${hotel.id}|}" th:text="${hotel.name}"/></td>
+            <td th:text="${hotel.address}"/>
+            <td th:text="${hotel.country.displayValue}"/>
+            <td><a th:href="@{|/hotels/${hotel.id}/update|}" class="btn btn-outline-dark me-2" role="button">Edit</a></td>
+            <td><a th:href="@{|/hotels/${hotel.id}/delete|}" class="btn btn-outline-danger me-2" role="button">Remove</a></td>
+        </tr>
+    </table>
+</div>
+</body>
+</html>

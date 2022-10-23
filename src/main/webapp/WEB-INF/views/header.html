@@ -1,0 +1,30 @@
+<header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom"
+        xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+    <a href="/" class="d-flex align-items-center col-md-3 mb-2 mb-md-0 text-dark text-decoration-none">
+        <svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap">
+            <use xlink:href="#bootstrap"/>
+        </svg>
+    </a>
+
+    <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
+        <li><a href="/" class="nav-link px-2 link-dark">Home</a></li>
+        <li><a sec:authorize="isAuthenticated()" th:href="@{|/bookings/${#authentication.principal.id}|}"
+               class="nav-link px-2 link-dark">My booking</a></li>
+        <li><a sec:authorize="hasRole('MANAGER')" th:href="@{/hotels}" class="nav-link px-2 link-dark"><span
+                class="text-primary">Hotels</span></a></li>
+        <li><a sec:authorize="hasRole('MANAGER')" th:href="@{/customers}" class="nav-link px-2 link-dark"><span
+                class="text-primary">Customers<span></span></a>
+        </li>
+        <li><a sec:authorize="hasRole('MANAGER')" th:href="@{/bookings}" class="nav-link px-2 link-dark"><span
+                class="text-primary">Bookings</span></a>
+        </li>
+    </ul>
+
+    <div class="col-md-3 text-end">
+        <a sec:authorize="isAuthenticated()" th:text="${#authentication.principal.fullname}"
+              th:href="@{|/customers/${#authentication.principal.id}|}" class="text-decoration-none"/>
+        <a sec:authorize="isAnonymous()" th:href="@{/login}" class="btn btn-outline-dark me-2" role="button">Login</a>
+        <a sec:authorize="isAuthenticated()" th:href="@{/logout}" class="btn btn-outline-dark me-2"
+           role="button">Logout</a>
+    </div>
+</header>
