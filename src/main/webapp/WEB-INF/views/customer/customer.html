@@ -10,11 +10,24 @@
 <body>
 <div class="container py-5">
     <div th:replace="header"></div>
-    <span th:text="${customer.id}"></span>
-    <span th:text="${customer.firstName}"></span>
-    <span th:text="${customer.lastName}"></span>
-    <span th:text="${customer.email}"></span>
-    <span th:text="${customer.role.displayValue}"></span>
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">First name</th>
+            <th scope="col">Last name</th>
+            <th scope="col">Email</th>
+            <th scope="col">Role</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td th:text="${customer.firstName}"/>
+            <td th:text="${customer.lastName}"/>
+            <td th:text="${customer.email}"/>
+            <td th:text="${customer.role.displayValue}"/>
+        </tr>
+        </tbody>
+    </table>
 </div>
 </body>
 </html>

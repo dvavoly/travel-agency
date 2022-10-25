@@ -1,0 +1,41 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Travel agency</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+</head>
+<body>
+<div class="container py-5">
+    <div th:replace="header"></div>
+    <h4>Room information</h4>
+    <table class="table">
+        <tr>
+            <th scope="col">Room Number</th>
+            <th scope="col">Room Type</th>
+            <th scope="col">Room Cost</th>
+            <th scope="col">Hotel</th>
+        </tr>
+        <tr>
+            <th th:text="${room.roomNumber}" scope="col"/>
+            <th th:text="${room.roomType.displayValue}" scope="col"/>
+            <th th:text="${room.roomCost}" scope="col"/>
+            <th th:text="${room.hotel.name}" scope="col"/>
+        </tr>
+    </table>
+    <h4>Book this room</h4>
+    <form th:action="@{|/rooms/${room.id}/booking|}" th:object="${booking}" method="post">
+        <div class="input-group">
+            <span class="input-group-text">Check-in date</span>
+            <input th:field="*{checkIn}" th:value="*{checkIn}" type="date" aria-label="First name" class="form-control">
+            <span class="input-group-text">Check-out date</span>
+            <input th:field="*{checkOut}" th:value="*{checkOut}" type="date" aria-label="Last name" class="form-control">
+            <input type="hidden" th:field="*{customer.id}" th:th:value="*{#authentication.principal.id}"/>
+            <button class="btn btn-outline-secondary" type="submit" id="button-addon2">Booking</button>
+        </div>
+    </form>
+</div>
+</body>
+</html>

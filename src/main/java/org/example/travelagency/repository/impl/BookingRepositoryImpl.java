@@ -25,21 +25,32 @@ public class BookingRepositoryImpl implements BookingRepository {
 
     @Override
     public Optional<Booking> findById(Integer id) {
-        return Optional.empty();
+        Session session = sessionFactory.getCurrentSession();
+        return Optional.ofNullable(session.find(Booking.class, id));
     }
 
     @Override
     public Booking save(Booking booking) {
-        return null;
+        Session session = sessionFactory.getCurrentSession();
+        Integer id = (Integer) session.save(booking);
+        return session.find(Booking.class, id);
     }
 
     @Override
     public Booking update(Booking booking) {
-        return null;
+        Session session = sessionFactory.getCurrentSession();
+        Booking toUpdate = session.find(Booking.class, booking.getId());
+        toUpdate.setRoom(booking.getRoom());
+        toUpdate.setCustomer(booking.getCustomer());
+        toUpdate.setCheckIn(booking.getCheckIn());
+        toUpdate.setCheckOut(booking.getCheckOut());
+        return toUpdate;
     }
 
     @Override
     public void deleteById(Integer id) {
-
+        Session session = sessionFactory.getCurrentSession();
+        Booking toDelete = session.find(Booking.class, id);
+        session.delete(toDelete);
     }
 }

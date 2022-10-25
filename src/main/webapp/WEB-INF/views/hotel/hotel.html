@@ -12,7 +12,7 @@
     <div th:replace="header"></div>
     <table class="table">
         <tr>
-            <th scope="col">Hotel Name</th>
+            <th scope="col">Hotel name</th>
             <th scope="col">Address</th>
             <th scope="col">Country</th>
             <th scope="col">Rooms:</th>
@@ -21,9 +21,10 @@
         <tr>
             <td th:text="${hotel.name}"/>
             <td th:text="${hotel.address}"/>
-            <td th:text="${hotel.country}"/>
+            <td th:text="${hotel.country.displayValue}"/>
             <td th:text="${#lists.size(hotel.rooms)}"/>
-            <th sec:authorize="hasRole('MANAGER')"><a sec:authorize="hasRole('MANAGER')" th:href="@{|/rooms/${hotel.id}|}"
+            <th sec:authorize="hasRole('MANAGER')"><a sec:authorize="hasRole('MANAGER')"
+                                                      th:href="@{|/rooms/${hotel.id}|}"
                                                       class="nav-link px-2 link-dark"><span
                     class="text-primary">Edit</span></a>
             </th>
@@ -33,26 +34,17 @@
         <table class="table">
             <tr>
                 <th scope="col">No.</th>
+                <th scope="col">Number</th>
                 <th scope="col">Type</th>
                 <th scope="col">Cost</th>
             </tr>
             <tr th:each="room, iStat: ${hotel.rooms}">
                 <th scope="row" th:text="${iStat.index + 1}"/>
-                <td th:text="${room.roomType}"/>
+                <td><a th:text="${room.roomNumber}" th:href="@{|/rooms/${room.id}/booking|}"/></td>
+                <td th:text="${room.roomType.displayValue}"/>
                 <td th:text="${room.roomCost}"/>
             </tr>
         </table>
-
-        <h4>Book this hotel</h4>
-        <form>
-            <div class="input-group">
-                <span class="input-group-text">From</span>
-                <input type="date" aria-label="First name" class="form-control">
-                <span class="input-group-text">To</span>
-                <input type="date" aria-label="Last name" class="form-control">
-                <button class="btn btn-outline-secondary" type="button" id="button-addon2">Order</button>
-            </div>
-        </form>
     </div>
 </div>
 </body>

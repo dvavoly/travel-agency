@@ -1,12 +1,12 @@
 package org.example.travelagency.service.impl;
 
+import org.example.travelagency.exception.BookingNotFoundException;
 import org.example.travelagency.model.Booking;
 import org.example.travelagency.repository.BookingRepository;
 import org.example.travelagency.service.BookingService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.EntityNotFoundException;
 import java.util.List;
 
 @Service
@@ -26,7 +26,7 @@ public class BookingServiceImpl implements BookingService {
     @Override
     public Booking readById(Integer id) {
         return bookingRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException(String.format("Booking with id %d does not exist", id)));
+                .orElseThrow(() -> new BookingNotFoundException(String.format("Booking with id %d does not exist", id)));
     }
 
     @Override

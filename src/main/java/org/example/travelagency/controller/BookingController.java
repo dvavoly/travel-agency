@@ -24,7 +24,7 @@ public class BookingController {
     @GetMapping("/bookings/{id}")
     public String getBookingByUserId(@PathVariable Integer id, Model model) {
         List<Booking> customerBookings = bookingService.getAll().stream()
-                .filter(b -> b.getId().equals(id))
+                .filter(b -> b.getCustomer().getId().equals(id))
                 .collect(Collectors.toList());
         model.addAttribute("bookings", customerBookings);
         return "booking/booking";

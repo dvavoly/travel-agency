@@ -1,5 +1,7 @@
 package org.example.travelagency.model;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -28,9 +30,11 @@ public class Booking {
     private Room room;
 
     @Column(name = "checkin_date")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate checkIn;
 
     @Column(name = "checkout_date")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate checkOut;
 
     public Booking() {
